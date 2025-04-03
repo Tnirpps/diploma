@@ -66,3 +66,4 @@ components_manager:
 
         handler-hello-grpc:
             task-processor: main-task-processor
+
