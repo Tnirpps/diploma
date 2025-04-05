@@ -1,0 +1,26 @@
+type: object
+description: Информация о продавце
+properties:
+  id:
+    type: string
+    description: Идентификатор продавца
+  name:
+    type: string
+    description: Название продавца
+  rating:
+    type: number
+    format: float
+    minimum: 0
+    maximum: 5
+    description: Рейтинг продавца
+  reviewsCount:
+    type: integer
+    description: Количество отзывов о продавце
+  isOfficial:
+    type: boolean
+    description: Является ли продавец официальным
+  logo:
+    $ref: './Image.yaml'
+required:
+  - id
+  - name

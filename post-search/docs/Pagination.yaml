@@ -1,0 +1,25 @@
+type: object
+description: Информация о пагинации
+properties:
+  currentPage:
+    type: integer
+    description: Текущая страница
+  totalPages:
+    type: integer
+    description: Общее количество страниц
+  totalItems:
+    type: integer
+    description: Общее количество элементов
+  perPage:
+    type: integer
+    description: Количество элементов на странице
+  hasNextPage:
+    type: boolean
+    description: Наличие следующей страницы
+  hasPreviousPage:
+    type: boolean
+    description: Наличие предыдущей страницы
+required:
+  - currentPage
+  - totalPages
+  - perPage

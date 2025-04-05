@@ -1,0 +1,31 @@
+type: object
+description: Фильтр для товаров
+properties:
+  id:
+    type: string
+    description: Идентификатор фильтра
+  name:
+    type: string
+    description: Название фильтра для отображения
+  type:
+    type: string
+    description: Тип фильтра
+    enum: [checkbox, range, color, radio, select]
+  options:
+    type: array
+    description: Варианты значений для фильтра
+    items:
+      $ref: './FilterOption.yaml'
+  min:
+    type: number
+    description: Минимальное значение для фильтров типа range
+  max:
+    type: number
+    description: Максимальное значение для фильтров типа range
+  unit:
+    type: string
+    description: Единица измерения для числовых фильтров
+required:
+  - id
+  - name
+  - type

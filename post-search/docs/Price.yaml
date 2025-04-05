@@ -1,0 +1,17 @@
+type: object
+description: Информация о цене
+properties:
+  value:
+    type: number
+    format: float
+    description: Числовое значение цены
+  currency:
+    type: string
+    description: Валюта цены (USD, EUR, RUB и т.д.)
+    enum: [USD, EUR, RUB, GBP, CNY, JPY]
+  formatted:
+    type: string
+    description: Отформатированная цена для отображения
+required:
+  - value
+  - currency

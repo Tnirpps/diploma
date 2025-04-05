@@ -1,0 +1,43 @@
+type: object
+description: Ответ API маркетплейса с товарами и метаинформацией
+properties:
+  products:
+    type: array
+    description: Список товаров в выдаче
+    items:
+      $ref: './Product.yaml'
+  pagination:
+    $ref: './Pagination.yaml'
+  filters:
+    type: array
+    description: Доступные фильтры для товаров
+    items:
+      $ref: './Filter.yaml'
+  appliedFilters:
+    type: object
+    description: Примененные в данном запросе фильтры
+    additionalProperties:
+      type: array
+      items:
+        type: string
+  category:
+    $ref: './Category.yaml'
+  breadcrumbs:
+    type: array
+    description: Навигационные хлебные крошки
+    items:
+      $ref: './Breadcrumb.yaml'
+  metadata:
+    type: object
+    properties:
+      totalProducts:
+        type: integer
+        description: Общее количество товаров по запросу
+      responseTime:
+        type: number
+        format: float
+        description: Время формирования ответа в миллисекундах
+required:
+  - products
+  - pagination
+  - filters

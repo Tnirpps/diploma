@@ -1,0 +1,16 @@
+type: object
+description: Краткая информация о категории
+properties:
+  id:
+    type: string
+    description: Идентификатор категории
+  name:
+    type: string
+    description: Название категории
+  url:
+    type: string
+    format: uri
+    description: URL категории
+required:
+  - id
+  - name

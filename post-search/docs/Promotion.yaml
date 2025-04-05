@@ -1,0 +1,27 @@
+type: object
+description: Информация об акции или промо-предложении
+properties:
+  id:
+    type: string
+    description: Идентификатор акции
+  name:
+    type: string
+    description: Название акции
+  description:
+    type: string
+    description: Описание акции
+  type:
+    type: string
+    enum: [discount, gift, installment, cashback, special]
+    description: Тип акции
+  icon:
+    type: string
+    description: Иконка акции
+  endDate:
+    type: string
+    format: date-time
+    description: Дата окончания акции
+required:
+  - id
+  - name
+  - type

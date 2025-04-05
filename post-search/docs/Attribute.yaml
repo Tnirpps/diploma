@@ -1,0 +1,18 @@
+type: object
+description: Атрибут товара
+properties:
+  name:
+    type: string
+    description: Название атрибута
+  value:
+    type: string
+    description: Значение атрибута
+  important:
+    type: boolean
+    description: Флаг важности атрибута (для выделения)
+  group:
+    type: string
+    description: Группа атрибутов
+required:
+  - name
+  - value

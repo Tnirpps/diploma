@@ -1,0 +1,56 @@
+type: object
+description: Информация о товаре
+properties:
+  id:
+    type: string
+    description: Уникальный идентификатор товара
+  title:
+    type: string
+    description: Название товара
+  description:
+    type: string
+    description: Краткое описание товара
+  price:
+    $ref: './Price.yaml'
+  oldPrice:
+    $ref: './Price.yaml'
+  discount:
+    type: integer
+    description: Процент скидки (если есть)
+  rating:
+    $ref: './Rating.yaml'
+  images:
+    type: array
+    description: Изображения товара
+    items:
+      $ref: './Image.yaml'
+  attributes:
+    type: array
+    description: Атрибуты товара
+    items:
+      $ref: './Attribute.yaml'
+  inStock:
+    type: boolean
+    description: Наличие товара на складе
+  deliveryInfo:
+    $ref: './Delivery.yaml'
+  seller:
+    $ref: './Seller.yaml'
+  url:
+    type: string
+    format: uri
+    description: Ссылка на страницу товара
+  promotions:
+    type: array
+    description: Акции, применимые к товару
+    items:
+      $ref: './Promotion.yaml'
+  categoryId:
+    type: string
+    description: ID категории товара
+required:
+  - id
+  - title
+  - price
+  - images
+  - inStock
