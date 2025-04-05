@@ -1,0 +1,29 @@
+type: object
+description: Рейтинг товара
+properties:
+  value:
+    type: number
+    format: float
+    minimum: 0
+    maximum: 5
+    description: Численное значение рейтинга
+  count:
+    type: integer
+    description: Количество оценок
+  distribution:
+    type: object
+    description: Распределение оценок
+    properties:
+      1:
+        type: integer
+      2:
+        type: integer
+      3:
+        type: integer
+      4:
+        type: integer
+      5:
+        type: integer
+required:
+  - value
+  - count

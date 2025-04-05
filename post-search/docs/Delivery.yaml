@@ -1,0 +1,24 @@
+type: object
+description: Информация о доставке
+properties:
+  available:
+    type: boolean
+    description: Доступность доставки
+  freeDelivery:
+    type: boolean
+    description: Наличие бесплатной доставки
+  minDays:
+    type: integer
+    description: Минимальное время доставки в днях
+  maxDays:
+    type: integer
+    description: Максимальное время доставки в днях
+  methods:
+    type: array
+    description: Доступные способы доставки
+    items:
+      type: string
+  cost:
+    $ref: './Price.yaml'
+required:
+  - available

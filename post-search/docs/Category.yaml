@@ -1,0 +1,29 @@
+type: object
+description: Категория товаров
+properties:
+  id:
+    type: string
+    description: Идентификатор категории
+  name:
+    type: string
+    description: Название категории
+  description:
+    type: string
+    description: Описание категории
+  url:
+    type: string
+    format: uri
+    description: URL категории
+  parent:
+    type: string
+    description: ID родительской категории
+  children:
+    type: array
+    description: Дочерние категории
+    items:
+      $ref: './CategoryShort.yaml'
+  image:
+    $ref: './Image.yaml'
+required:
+  - id
+  - name

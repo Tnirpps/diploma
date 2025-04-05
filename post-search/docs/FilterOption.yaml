@@ -1,0 +1,25 @@
+type: object
+description: Вариант значения фильтра
+properties:
+  id:
+    type: string
+    description: Идентификатор варианта
+  value:
+    type: string
+    description: Значение варианта
+  count:
+    type: integer
+    description: Количество товаров с этим значением фильтра
+  selected:
+    type: boolean
+    description: Выбран ли данный вариант в текущем запросе
+  disabled:
+    type: boolean
+    description: Отключен ли вариант (нет товаров)
+  color:
+    type: string
+    description: Код цвета для фильтров типа color
+required:
+  - id
+  - value
+  - count

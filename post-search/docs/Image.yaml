@@ -1,0 +1,22 @@
+type: object
+description: Изображение товара
+properties:
+  url:
+    type: string
+    format: uri
+    description: URL изображения
+  type:
+    type: string
+    description: Тип изображения (основное, дополнительное, миниатюра)
+    enum: [main, additional, thumbnail]
+  width:
+    type: integer
+    description: Ширина изображения в пикселях
+  height:
+    type: integer
+    description: Высота изображения в пикселях
+  altText:
+    type: string
+    description: Альтернативный текст для изображения
+required:
+  - url
