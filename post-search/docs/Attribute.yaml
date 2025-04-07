@@ -1,5 +1,6 @@
 type: object
 description: Атрибут товара
+additionalProperties: false
 properties:
   name:
     type: string

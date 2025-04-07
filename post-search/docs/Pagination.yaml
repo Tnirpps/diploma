@@ -1,5 +1,6 @@
 type: object
 description: Информация о пагинации
+additionalProperties: false
 properties:
   currentPage:
     type: integer

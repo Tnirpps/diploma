@@ -1,5 +1,6 @@
 type: object
 description: Информация о товаре
+additionalProperties: false
 properties:
   id:
     type: string

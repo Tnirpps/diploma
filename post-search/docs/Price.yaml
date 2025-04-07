@@ -1,5 +1,6 @@
 type: object
 description: Информация о цене
+additionalProperties: false
 properties:
   value:
     type: number

@@ -1,5 +1,6 @@
 type: object
 description: Ответ API маркетплейса с товарами и метаинформацией
+additionalProperties: false
 properties:
   products:
     type: array

@@ -1,5 +1,6 @@
 type: object
 description: Рейтинг товара
+additionalProperties: false
 properties:
   value:
     type: number
