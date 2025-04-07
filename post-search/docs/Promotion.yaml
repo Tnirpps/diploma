@@ -1,5 +1,6 @@
 type: object
 description: Информация об акции или промо-предложении
+additionalProperties: false
 properties:
   id:
     type: string

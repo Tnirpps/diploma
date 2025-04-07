@@ -1,5 +1,6 @@
 type: object
 description: Вариант значения фильтра
+additionalProperties: false
 properties:
   id:
     type: string

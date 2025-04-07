@@ -1,5 +1,6 @@
 type: object
 description: Изображение товара
+additionalProperties: false
 properties:
   url:
     type: string

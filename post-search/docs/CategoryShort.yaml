@@ -1,5 +1,6 @@
 type: object
 description: Краткая информация о категории
+additionalProperties: false
 properties:
   id:
     type: string

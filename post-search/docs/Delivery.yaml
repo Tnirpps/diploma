@@ -1,5 +1,6 @@
 type: object
 description: Информация о доставке
+additionalProperties: false
 properties:
   available:
     type: boolean
