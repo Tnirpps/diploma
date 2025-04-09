@@ -1,0 +1,22 @@
+#include "Pagination.hpp"
+
+#include <userver/chaotic/type_bundle_cpp.hpp>
+
+#include "Pagination_parsers.ipp"
+
+namespace post_search {
+
+bool operator==(const ::post_search::&lhs, const ::post_search::&rhs) {
+  return lhs.currentPage == rhs.currentPage &&
+         lhs.totalPages == rhs.totalPages && lhs.totalItems == rhs.totalItems &&
+         lhs.perPage == rhs.perPage && lhs.hasNextPage == rhs.hasNextPage &&
+         lhs.hasPreviousPage == rhs.hasPreviousPage && true;
+}
+
+Parse(USERVER_NAMESPACE::formats::json::Value json,
+      USERVER_NAMESPACE::formats::parse::To<::post_search::> to) {
+  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
+}
+
+}  // namespace post_search
+

@@ -21,7 +21,7 @@ properties:
     type: boolean
     description: Является ли продавец официальным
   logo:
-    $ref: './Image.yaml'
+    $ref: 'Image.yaml#'
 required:
   - id
   - name
