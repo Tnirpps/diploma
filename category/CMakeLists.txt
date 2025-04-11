@@ -1,24 +1,36 @@
 cmake_minimum_required(VERSION 3.12...3.31)
-project(search_market_place CXX)
+project(category CXX)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 include(DownloadUserver)
 
-find_package(userver COMPONENTS core QUIET)
+find_package(userver COMPONENTS
+    core
+    postgresql
+    QUIET
+)
 if(NOT userver_FOUND)
   # Tries TRY_DIR first, falls back to downloading userver from GitHub using CPM.
-  download_userver(TRY_DIR third_party/userver VERSION 2.8)
+  download_userver(TRY_DIR third_party/userver)
 endif()
 
 userver_setup_environment()
 
 
 # Common sources
+include_directories(src)
+
 add_library(${PROJECT_NAME}_objs OBJECT
-    src/hello.hpp
+    src/greeting.cpp
     src/hello.cpp
+    src/hello_postgres.cpp
 )
-target_link_libraries(${PROJECT_NAME}_objs PUBLIC userver::core)
+target_link_libraries(${PROJECT_NAME}_objs PUBLIC
+  userver::core
+  userver::postgresql
+)
+
+
 
 
 # The Service
@@ -28,7 +40,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE ${PROJECT_NAME}_objs)
 
 # Unit Tests
 add_executable(${PROJECT_NAME}_unittest
-    src/hello_test.cpp
+    src/greeting_test.cpp
 )
 target_link_libraries(${PROJECT_NAME}_unittest PRIVATE ${PROJECT_NAME}_objs userver::utest)
 add_google_tests(${PROJECT_NAME}_unittest)
@@ -36,7 +48,7 @@ add_google_tests(${PROJECT_NAME}_unittest)
 
 # Benchmarks
 add_executable(${PROJECT_NAME}_benchmark
-    src/hello_benchmark.cpp
+    src/greeting_benchmark.cpp
 )
 target_link_libraries(${PROJECT_NAME}_benchmark PRIVATE ${PROJECT_NAME}_objs userver::ubench)
 add_google_benchmark_tests(${PROJECT_NAME}_benchmark)

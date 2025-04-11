@@ -14,7 +14,7 @@ void HelloBenchmark(benchmark::State& state) {
 
     for (auto _ : state) {
       const auto name = kNames[i++ % std::size(kNames)];
-      auto result = service_template::SayHelloTo(name);
+      auto result = search_market_place::SayHelloTo(name);
       benchmark::DoNotOptimize(result);
     }
   });
