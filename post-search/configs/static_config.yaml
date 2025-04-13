@@ -1,19 +1,18 @@
 components_manager:
-    task_processors:                  # Task processor is an executor for coroutine tasks
+    task_processors:
+        main-task-processor:
+            worker_threads: $worker-threads
 
-        main-task-processor:          # Make a task processor for CPU-bound coroutine tasks.
-            worker_threads: $worker-threads         # Process tasks in 4 threads.
-
-        fs-task-processor:            # Make a separate task processor for filesystem bound tasks.
+        fs-task-processor:
             worker_threads: $worker-fs-threads
 
     default_task_processor: main-task-processor
 
-    components:                       # Configuring components that were registered via component_list
+    components:
         server:
-            listener:                 # configuring the main listening socket...
-                port: $server-port            # ...to listen on this port and...
-                task_processor: main-task-processor    # ...process incoming requests on this task processor.
+            listener:
+                port: $server-port
+                task_processor: main-task-processor
 
         logging:
             fs-task-processor: fs-task-processor
@@ -21,12 +20,10 @@ components_manager:
                 default:
                     file_path: '@stderr'
                     level: $logger-level
-                    overflow_behavior: discard  # Drop logs if the system is too busy to write them down.
+                    overflow_behavior: discard
 
-        # Dynamic config options. Cache is disabled, updates are disabled.
         dynamic-config:
             # For most of userver dynamic configs, defaults are used, some are overridden here.
-            # See userver "dynamic config" docs for what configs exist.
             defaults:
                 HTTP_CLIENT_CONNECTION_POOL_SIZE: 1000
 
@@ -54,16 +51,10 @@ components_manager:
             throttling_enabled: false
             url_trailing_slash: strict-match
 
-        handler-hello:                    # Finally! Our handler.
-            path: /hello                  # Registering handler by URL '/hello'.
-            method: GET,POST              # It will only reply to GET (HEAD) and POST requests.
-            task_processor: main-task-processor  # Run it on CPU bound task processor
-
         grpc-server:
-            # The single listening port for incoming RPCs
             port: $grpc-server-port
             completion-queue-count: 3
 
-        handler-hello-grpc:
+        handler-post-search-grpc:
             task-processor: main-task-processor
 

@@ -108,7 +108,7 @@ function(userver_target_generate_chaotic TARGET)
       if(SUFFIX STREQUAL cpp)
         continue()
       endif()
-      
+
       _userver_directory_install(
           COMPONENT ${PARSE_INSTALL_INCLUDES_COMPONENT}
           FILES "${FILE}"
@@ -140,9 +140,7 @@ userver_setup_environment()
 include_directories(src)
 
 add_library(${PROJECT_NAME}_objs OBJECT
-    src/greeting.cpp
-    src/hello.cpp
-    src/hello_grpc.cpp
+    src/renderer.cpp
 )
 target_link_libraries(${PROJECT_NAME}_objs
 PUBLIC userver::core
@@ -151,7 +149,7 @@ PUBLIC userver::grpc
 
 
 # Create a proto library with userver extensions
-userver_add_grpc_library(${PROJECT_NAME}_proto PROTOS handlers/hello.proto)
+userver_add_grpc_library(${PROJECT_NAME}_proto PROTOS handlers/post_search.proto)
 target_link_libraries(${PROJECT_NAME}_objs PUBLIC ${PROJECT_NAME}_proto)
 
 # The Service
@@ -197,9 +195,8 @@ file(GLOB_RECURSE SCHEMAS ${CMAKE_CURRENT_SOURCE_DIR}/schemas/*.yaml)
 userver_target_generate_chaotic(${PROJECT_NAME}-chgen
     # Generate serializers for responses
     GENERATE_SERIALIZERS
-    # Map '/components/schemas/*' JSONSchema types to C++ types in 'samples::hello' namespace
     LAYOUT
-        "/components/schemas/([^/]*)/=samples::hello::{0}"
+        "/components/schemas/([^/]*)/=post_search::{0}"
     OUTPUT_DIR
         ${CMAKE_CURRENT_BINARY_DIR}/src
     SCHEMAS

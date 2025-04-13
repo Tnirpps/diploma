@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+import "search/proto/output/Result.proto";
+import "search/proto/category/Category.proto";
+import "search/proto/price/Price.proto";
+import "search/proto/category/FavouriteCategory.proto";
+import "search/proto/passport/User.proto";
+
+package post_search;
+
+service ProtoConverter {
+  rpc ConvertToJson (InputMessage) returns (JsonResponse) {}
+}
+
+message InputMessage {
+  optional search.proto.output.Result result = 1;
+  optional search.proto.category.Category category = 2;
+  repeated search.proto.price.Price price = 3;
+  repeated search.proto.price.FavouriteCategory favourite_category = 4;
+  optional search.proto.passport.User user = 5;
+}
+
+message JsonResponse {
+  string json_data = 1;
+  bool success = 2;
+  string error = 3; // empty if success is true
+}
