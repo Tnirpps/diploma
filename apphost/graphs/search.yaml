@@ -1,0 +1,97 @@
+version: 1
+entrypoint: search_products
+flows:
+  search_products:
+    description: Поиск товаров с базовым обогащением данных
+    nodes:
+      - id: parse_query
+        call: query-parser
+        with:
+          query: $input.query
+          language: $input.language
+        output: parsed_query
+        config:
+          timeout: 200ms
+          retries:
+            attempts: 1
+
+      - id: search_catalog
+        depends_on: [parse_query]
+        call: catalog-search
+        with:
+          terms: $parsed_query.terms
+          filters: $input.filters
+        output: search_results
+        config:
+          timeout: 800ms
+          retries:
+            attempts: 2
+            delay: 100ms
+
+      - id: get_product_ids
+        depends_on: [search_catalog]
+        call: extract-ids
+        with:
+          results: $search_results.items
+          limit: $input.limit
+        output: product_ids
+        config:
+          timeout: 100ms
+
+      - id: fetch_catalog_info
+        depends_on: [get_product_ids]
+        call: catalog-bulk-info
+        with:
+          ids: $product_ids
+          fields: ["name", "description", "images"]
+        output: catalog_info
+        config:
+          timeout: 1200ms
+          retries:
+            attempts: 2
+            delay: 200ms
+
+      - id: fetch_price_info
+        depends_on: [get_product_ids]
+        call: price-service
+        with:
+          ids: $product_ids
+          currency: $input.currency
+        output: price_info
+        config:
+          timeout: 300ms
+          retries:
+            attempts: 2
+
+      - id: fetch_ratings
+        depends_on: [get_product_ids]
+        call: ratings-service
+        with:
+          ids: $product_ids
+        output: ratings_info
+        config:
+          timeout: 200ms
+          cache:
+            ttl: 600s
+
+      - id: aggregate_results
+        depends_on: [fetch_catalog_info, fetch_price_info, fetch_ratings]
+        call: data-aggregator
+        with:
+          product_ids: $product_ids
+          catalog: $catalog_info
+          prices: $price_info
+          ratings: $ratings_info
+        output: aggregated_products
+        config:
+          timeout: 250ms
+
+      - id: apply_sorting
+        depends_on: [aggregate_results]
+        call: results-sorter
+        with:
+          products: $aggregated_products
+          sort_by: $input.sort_by
+        output: final_results
+        config:
+          timeout: 150ms
