@@ -6,7 +6,7 @@
 #include <userver/testsuite/testsuite_support.hpp>
 #include <userver/utils/daemon_run.hpp>
 
-#include "hello.hpp"
+#include "server.hpp"
 
 int main(int argc, char* argv[]) {
   auto component_list = userver::components::MinimalServerComponentList()
@@ -16,7 +16,7 @@ int main(int argc, char* argv[]) {
                             .Append<userver::clients::dns::Component>()
                             .Append<userver::server::handlers::TestsControl>();
 
-  search_market_place::AppendHello(component_list);
+  search_market_place::Server(component_list);
 
   return userver::utils::DaemonMain(argc, argv, component_list);
 }

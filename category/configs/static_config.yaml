@@ -1,19 +1,19 @@
 components_manager:
-    task_processors:                  # Task processor is an executor for coroutine tasks
+    task_processors:
 
-        main-task-processor:          # Make a task processor for CPU-bound coroutine tasks.
-            worker_threads: $worker-threads         # Process tasks in 4 threads.
+        main-task-processor:
+            worker_threads: $worker-threads
 
-        fs-task-processor:            # Make a separate task processor for filesystem bound tasks.
+        fs-task-processor:
             worker_threads: $worker-fs-threads
 
     default_task_processor: main-task-processor
 
-    components:                       # Configuring components that were registered via component_list
+    components:
         server:
-            listener:                 # configuring the main listening socket...
-                port: $server-port            # ...to listen on this port and...
-                task_processor: main-task-processor    # ...process incoming requests on this task processor.
+            listener:
+                port: $server-port
+                task_processor: main-task-processor
 
         logging:
             fs-task-processor: fs-task-processor
@@ -57,15 +57,10 @@ components_manager:
             throttling_enabled: false
             url_trailing_slash: strict-match
 
-        handler-hello:                    # Finally! Our handler.
-            path: /hello                  # Registering handler by URL '/hello'.
-            method: GET,POST              # It will only reply to GET (HEAD) and POST requests.
-            task_processor: main-task-processor  # Run it on CPU bound task processor
-
-        handler-hello-postgres:          # Our postgres handler.
-            path: /hello-postgres         # Registering handler by URL '/hello-postgres'.
-            method: GET,POST              # It will only reply to GET (HEAD) and POST requests.
-            task_processor: main-task-processor  # Run it on CPU bound task processor
+        handler:
+            path: /search
+            method: GET,POST
+            task_processor: main-task-processor
 
         postgres-db-1:
             dbconnection: $pg-connection

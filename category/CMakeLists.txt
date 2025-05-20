@@ -19,12 +19,6 @@ userver_setup_environment()
 
 # Common sources
 include_directories(src)
-
-add_library(${PROJECT_NAME}_objs OBJECT
-    src/greeting.cpp
-    src/hello.cpp
-    src/hello_postgres.cpp
-)
 target_link_libraries(${PROJECT_NAME}_objs PUBLIC
   userver::core
   userver::postgresql
